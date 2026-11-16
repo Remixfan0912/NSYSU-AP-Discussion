@@ -1161,7 +1161,7 @@
     // Load markdown file via fetch, with local file picker fallback if blocked by file:// CORS
     async function loadMarkdown() {
       try {
-        const res = await fetch(MD_FILE_PATH);
+        const res = await fetch(`${MD_FILE_PATH}?t=${Date.now()}`, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
         renderDocument(text);
