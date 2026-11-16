@@ -793,7 +793,7 @@
   </div>
 
   <script>
-    const MD_FILE_PATH = "./NSYSU-AP專案組討論區.md";
+    const MD_FILE_PATH = encodeURI("./NSYSU-AP專案組討論區.md");
 
     // Parse YAML frontmatter without altering body text
     function parseFrontmatter(rawText) {
@@ -1167,10 +1167,15 @@
         renderDocument(text);
       } catch (err) {
         const contentArea = document.getElementById("contentArea");
+        const isFileProtocol = window.location.protocol === "file:";
+        const reasonHtml = isFileProtocol
+          ? `<p>無法直接透過瀏覽器 <code>file://</code> 讀取本地 Markdown 檔案（CORS 安全性限制）。</p>
+             <p>請使用本地伺服器（例如 <code>python -m http.server</code> 或 Live Server）開啟，或手動選取 <code>NSYSU-AP專案組討論區.md</code>：</p>`
+          : `<p>無法自動讀取 Markdown 檔案（<code>${err.message}</code>）。</p>
+             <p>若剛部署到 GitHub Pages，請確認專案根目錄已包含 <code>.nojekyll</code> 檔案並稍候重新整理，或先手動選取 <code>NSYSU-AP專案組討論區.md</code>：</p>`;
         contentArea.innerHTML = `
           <div class="fallback-box">
-            <p>無法直接透過瀏覽器 <code>file://</code> 讀取本地 Markdown 檔案（CORS 安全性限制）。</p>
-            <p>請使用本地伺服器（例如 <code>python -m http.server</code> 或 Live Server）開啟，或手動選取 <code>NSYSU-AP專案組討論區.md</code>：</p>
+            ${reasonHtml}
             <label class="file-label">
               選取 Markdown 檔案
               <input type="file" id="mdFileInput" accept=".md,.markdown,text/markdown" />
