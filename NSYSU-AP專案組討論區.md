@@ -9,7 +9,7 @@ title: NSYSU-AP專案組討論區
 - 本文檔由Rix所寫，內容不保證完全正確，僅提供校務通專案組組員使用、討論
 - 可前往美化後網頁版查看，模板由Gemini 4 Hydrogen生成 --> [專案組討論區網頁版](https://remixfan0912.github.io/NSYSU-AP-Discussion/)
 
-## 第一次專案討論 : 安裝環境 (2026/10/1)
+## 討論No.1 : 安裝環境 (2026/10/1)
 #### Windows安裝步驟 : 
 1. 下載choco : 參考 [Chocolatey官網](https://chocolatey.org/install)
     - 以系統管理員打開PowerShell，輸入 `Get-ExecutionPolicy`
@@ -87,7 +87,7 @@ title: NSYSU-AP專案組討論區
 #### Linux安裝步驟 : 沒
 
 
-## 第二次專案討論 : Flutter app基本架構與頁面推進 (2026/11/5)
+## 討論No.2 : Flutter架構 & 頁面推進 (2026/11/5)
 - 本次討論重點 : 
     - **一個專案的基本長相** : 
         #### 打包後要運行的平台工具包，不太會動到
@@ -114,7 +114,7 @@ title: NSYSU-AP專案組討論區
 
 
 
-## 第三次專案討論 : 後端基本認識、API試打 (2026/11/12)
+## 討論No.3 : 後端基本認識、API試打 (2026/11/12)
 - 本次討論重點 : 
     - **Dio套件使用** : GET/POST、Request Body
     - **async與await** : 認識何謂非同步執行緒與使用方式
