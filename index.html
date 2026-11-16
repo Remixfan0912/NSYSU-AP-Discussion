@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NSYSU-AP專案組討論區</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg-page: #f4f6fa;
+      --bg-surface: #ffffff;
+      --bg-subcard: #f8fafc;
+      --bg-code: #0f172a;
+      --bg-inline-code: #eef2f7;
+      --bg-hover: #eef4ff;
+      --bg-active: #e0edff;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-code: #e2e8f0;
+      --text-inline-code: #0f4c81;
+      --accent: #0175c2;
+      --accent-dark: #02569b;
+      --accent-light: #13b9fd;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
+      --glass-surface: rgba(255, 255, 255, 0.86);
+      --cyber-grid-color: rgba(1, 117, 194, 0.06);
+      --orb-opacity: 0.28;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --header-height: 64px;
+      --sidebar-width: 260px;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0b1120;
+      --bg-surface: #111827;
+      --bg-subcard: #172033;
+      --bg-code: #060a14;
+      --bg-inline-code: #1e293b;
+      --bg-hover: #1e293b;
+      --bg-active: rgba(19, 185, 253, 0.14);
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-code: #e2e8f0;
+      --text-inline-code: #7dd3fc;
+      --accent: #38bdf8;
+      --accent-dark: #0284c7;
+      --accent-light: #7dd3fc;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
+      --glass-surface: rgba(17, 24, 39, 0.82);
+      --cyber-grid-color: rgba(56, 189, 248, 0.08);
+      --orb-opacity: 0.36;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 24px);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Cyberpunk Iridescent + Particle Background */
+    .cyber-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .cyber-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--cyber-grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--cyber-grid-color) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 35%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 35%, transparent 100%);
+    }
+
+    .cyber-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(95px);
+      opacity: var(--orb-opacity);
+      will-change: transform;
+      animation: orbFloat 18s ease-in-out infinite alternate;
+    }
+
+    .cyber-orb-1 {
+      width: 520px;
+      height: 520px;
+      top: -140px;
+      left: -80px;
+      background: radial-gradient(circle, #00f5ff 0%, #3b82f6 55%, transparent 75%);
+    }
+
+    .cyber-orb-2 {
+      width: 560px;
+      height: 560px;
+      top: 25%;
+      right: -140px;
+      background: radial-gradient(circle, #ff2a85 0%, #a855f7 55%, transparent 75%);
+      animation-delay: -6s;
+      animation-duration: 22s;
+    }
+
+    .cyber-orb-3 {
+      width: 480px;
+      height: 480px;
+      bottom: -140px;
+      left: 32%;
+      background: radial-gradient(circle, #22d3ee 0%, #8b5cf6 55%, transparent 75%);
+      animation-delay: -11s;
+      animation-duration: 25s;
+    }
+
+    @keyframes orbFloat {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(40px, -30px, 0) scale(1.08);
+      }
+      100% {
+        transform: translate3d(-30px, 35px, 0) scale(0.95);
+      }
+    }
+
+    #cyberParticles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cyber-orb {
+        animation: none;
+      }
+    }
+
+    .layout {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Reading Progress Bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
+      z-index: 1000;
+      transition: width 0.1s linear;
+    }
+
+    /* Top Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      height: var(--header-height);
+      background: color-mix(in srgb, var(--bg-surface) 86%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent-light));
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(1, 117, 194, 0.25);
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--bg-hover);
+      color: var(--accent);
+      border-color: var(--border-strong);
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    /* Main Layout */
+    .layout {
+      max-width: 100%;
+      margin: 0;
+      padding: 28px 36px 72px 16px;
+      display: grid;
+      grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 24px);
+      background: var(--glass-surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      max-height: calc(100vh - var(--header-height) - 48px);
+      overflow-y: auto;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item {
+      display: block;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid transparent;
+      transition: all 0.18s ease;
+      line-height: 1.45;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-hover);
+      color: var(--accent);
+    }
+
+    .nav-item.active {
+      background: var(--bg-active);
+      color: var(--accent);
+      border-left-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav-item.nav-sub {
+      padding-left: 24px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .nav-item.nav-sub:hover,
+    .nav-item.nav-sub.active {
+      color: var(--accent);
+    }
+
+    /* Content Area */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    /* Discussion Section Card */
+    .discussion-card {
+      background: var(--glass-surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .discussion-card:hover {
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      box-shadow: var(--shadow-md), 0 0 24px -8px color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+
+    .card-header {
+      padding: 24px 34px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--bg-surface)), var(--bg-surface));
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .card-header-accent {
+      width: 5px;
+      height: 28px;
+      border-radius: 99px;
+      background: linear-gradient(180deg, var(--accent-dark), var(--accent-light));
+      flex-shrink: 0;
+    }
+
+    .card-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .card-body {
+      padding: 28px 34px 34px;
+      line-height: 1.85;
+    }
+
+    /* Sub-section filter menu (for OS tabs when multiple H4s exist at top level) */
+    .subnav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 6px;
+      background: var(--bg-subcard);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .pill-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .pill-btn:hover {
+      color: var(--accent);
+      background: var(--bg-hover);
+    }
+
+    .pill-btn.active {
+      background: var(--bg-surface);
+      color: var(--accent);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Sub-card for H4 sections */
+    .sub-card {
+      background: var(--bg-subcard);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      margin-bottom: 20px;
+    }
+
+    .sub-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .sub-card.is-hidden {
+      display: none;
+    }
+
+    .sub-card > h4:first-child {
+      margin-top: 0;
+    }
+
+    /* Typography inside rendered markdown */
+    .card-body h4 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin: 20px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-strong);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    [data-theme="dark"] .card-body h4 {
+      color: var(--accent-light);
+    }
+
+    .card-body p {
+      margin: 0 0 12px;
+    }
+
+    .card-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-body ul,
+    .card-body ol {
+      margin: 8px 0 14px;
+      padding-left: 24px;
+    }
+
+    .card-body li {
+      margin: 8px 0;
+    }
+
+    .card-body li > ul,
+    .card-body li > ol {
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+
+    .card-body strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .card-body del {
+      color: var(--text-muted);
+    }
+
+    .card-body a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+      transition: border-color 0.15s ease;
+    }
+
+    .card-body a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* Inline code */
+    .card-body :not(pre) > code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.86em;
+      background: var(--bg-inline-code);
+      color: var(--text-inline-code);
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      word-break: break-word;
+    }
+
+    /* Code block wrapper */
+    .code-wrapper {
+      position: relative;
+      margin: 12px 0 16px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #1e293b;
+      background: var(--bg-code);
+    }
+
+    .code-wrapper pre {
+      margin: 0;
+      padding: 16px 48px 16px 18px;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-code);
+    }
+
+    .code-wrapper pre code {
+      font-family: inherit;
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+
+    .copy-btn.copied {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #6ee7b7;
+    }
+
+    /* Images */
+    .card-body img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 14px 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      cursor: zoom-in;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card-body img:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      place-items: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open {
+      display: grid;
+    }
+
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 90vh;
+      border-radius: var(--radius-md);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-md);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      z-index: 800;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* Fallback / Error state when opened via file:// */
+    .fallback-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .file-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+        padding: 20px 16px 64px;
+      }
+
+      .menu-toggle {
+        display: grid;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        bottom: 0;
+        width: min(300px, 85vw);
+        max-height: none;
+        border-radius: 0;
+        z-index: 950;
+        transform: translateX(-105%);
+        transition: transform 0.25s ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        top: var(--header-height);
+        background: rgba(15, 23, 42, 0.45);
+        z-index: 940;
+        display: none;
+      }
+
+      .sidebar-backdrop.open {
+        display: block;
+      }
+
+      .card-header {
+        padding: 18px 20px;
+      }
+
+      .card-body {
+        padding: 18px 20px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-bg" aria-hidden="true">
+    <div class="cyber-grid"></div>
+    <div class="cyber-orb cyber-orb-1"></div>
+    <div class="cyber-orb cyber-orb-2"></div>
+    <div class="cyber-orb cyber-orb-3"></div>
+    <canvas id="cyberParticles"></canvas>
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <div class="brand-badge" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+      </div>
+      <h1 class="site-title" id="siteTitle">NSYSU-AP專案組討論區</h1>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Theme">
+        <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar-nav" id="sidebarNav"></nav>
+    </aside>
+
+    <main class="content-area" id="contentArea"></main>
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <div class="lightbox" id="lightbox">
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script>
+    const MD_FILE_PATH = "./NSYSU-AP專案組討論區.md";
+
+    // Parse YAML frontmatter without altering body text
+    function parseFrontmatter(rawText) {
+      const fmMatch = rawText.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+      let title = "";
+      let body = rawText;
+
+      if (fmMatch) {
+        const fmContent = fmMatch[1];
+        const titleMatch = fmContent.match(/^title:\s*(.+)$/m);
+        if (titleMatch) {
+          title = titleMatch[1].trim();
+        }
+        body = rawText.slice(fmMatch[0].length);
+      }
+
+      // Remove standalone [TOC] directive line (replaced by sidebar navigation)
+      body = body.replace(/^\s*\[TOC\]\s*(\r?\n)+/m, "");
+      return { title, body };
+    }
+
+    // Build cards, sub-cards, OS filter pills, and sidebar navigation from rendered HTML
+    function renderDocument(rawText) {
+      const { title, body } = parseFrontmatter(rawText);
+
+      if (title) {
+        document.title = title;
+        document.getElementById("siteTitle").textContent = title;
+      }
+
+      marked.setOptions({
+        gfm: true,
+        breaks: false
+      });
+
+      const tempContainer = document.createElement("div");
+      tempContainer.innerHTML = marked.parse(body);
+
+      const contentArea = document.getElementById("contentArea");
+      const sidebarNav = document.getElementById("sidebarNav");
+      contentArea.innerHTML = "";
+      sidebarNav.innerHTML = "";
+
+      // Split top-level nodes into cards by H2
+      const cards = [];
+      let currentCard = null;
+
+      Array.from(tempContainer.childNodes).forEach((node) => {
+        if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "H2") {
+          currentCard = {
+            heading: node,
+            nodes: []
+          };
+          cards.push(currentCard);
+        } else if (currentCard) {
+          currentCard.nodes.push(node);
+        } else if (node.textContent.trim() !== "") {
+          // Fallback if content exists before first H2
+          currentCard = {
+            heading: null,
+            nodes: [node]
+          };
+          cards.push(currentCard);
+        }
+      });
+
+      let headingIndex = 0;
+
+      cards.forEach((cardData, cardIdx) => {
+        const section = document.createElement("section");
+        section.className = "discussion-card";
+
+        if (cardData.heading) {
+          const h2Id = `section-${++headingIndex}`;
+          cardData.heading.id = h2Id;
+
+          const headerDiv = document.createElement("div");
+          headerDiv.className = "card-header";
+
+          const accentBar = document.createElement("span");
+          accentBar.className = "card-header-accent";
+
+          headerDiv.appendChild(accentBar);
+          headerDiv.appendChild(cardData.heading);
+          section.appendChild(headerDiv);
+
+          // Add H2 to sidebar nav
+          const navLink = document.createElement("a");
+          navLink.href = `#${h2Id}`;
+          navLink.className = "nav-item";
+          navLink.textContent = cardData.heading.textContent;
+          navLink.dataset.target = h2Id;
+          sidebarNav.appendChild(navLink);
+        }
+
+        const bodyDiv = document.createElement("div");
+        bodyDiv.className = "card-body";
+
+        // Group direct H4 sections inside this card into sub-cards
+        const hasDirectH4 = cardData.nodes.some(
+          (n) => n.nodeType === Node.ELEMENT_NODE && n.tagName === "H4"
+        );
+
+        if (hasDirectH4) {
+          const subCards = [];
+          let currentSub = null;
+
+          cardData.nodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "H4") {
+              currentSub = { heading: node, nodes: [] };
+              subCards.push(currentSub);
+            } else if (currentSub) {
+              currentSub.nodes.push(node);
+            } else if (node.nodeType === Node.ELEMENT_NODE || node.textContent.trim() !== "") {
+              bodyDiv.appendChild(node);
+            }
+          });
+
+          // Create interactive filter pill menu using exact H4 titles
+          if (subCards.length > 1) {
+            const pillBar = document.createElement("div");
+            pillBar.className = "subnav-pills";
+
+            const allBtn = document.createElement("button");
+            allBtn.type = "button";
+            allBtn.className = "pill-btn active";
+            allBtn.textContent = "All";
+            pillBar.appendChild(allBtn);
+
+            const subCardEls = [];
+
+            subCards.forEach((sub, subIdx) => {
+              const subId = `sub-${cardIdx}-${subIdx}`;
+              sub.heading.id = subId;
+
+              const subEl = document.createElement("div");
+              subEl.className = "sub-card";
+              subEl.appendChild(sub.heading);
+              sub.nodes.forEach((n) => subEl.appendChild(n));
+              subCardEls.push(subEl);
+
+              // Sidebar sub-item
+              const subNav = document.createElement("a");
+              subNav.href = `#${subId}`;
+              subNav.className = "nav-item nav-sub";
+              subNav.textContent = sub.heading.textContent;
+              subNav.dataset.target = subId;
+              subNav.addEventListener("click", () => {
+                // Ensure target sub-card is visible when clicked from sidebar
+                allBtn.classList.add("active");
+                pillBar.querySelectorAll(".pill-btn").forEach((b) => {
+                  if (b !== allBtn) b.classList.remove("active");
+                });
+                subCardEls.forEach((el) => el.classList.remove("is-hidden"));
+              });
+              sidebarNav.appendChild(subNav);
+
+              // Pill button
+              const pillBtn = document.createElement("button");
+              pillBtn.type = "button";
+              pillBtn.className = "pill-btn";
+              pillBtn.textContent = sub.heading.textContent.replace(/\s*:\s*$/, "");
+              pillBtn.addEventListener("click", () => {
+                pillBar.querySelectorAll(".pill-btn").forEach((b) => b.classList.remove("active"));
+                pillBtn.classList.add("active");
+                subCardEls.forEach((el, idx) => {
+                  el.classList.toggle("is-hidden", idx !== subIdx);
+                });
+              });
+              pillBar.appendChild(pillBtn);
+            });
+
+            allBtn.addEventListener("click", () => {
+              pillBar.querySelectorAll(".pill-btn").forEach((b) => b.classList.remove("active"));
+              allBtn.classList.add("active");
+              subCardEls.forEach((el) => el.classList.remove("is-hidden"));
+            });
+
+            bodyDiv.appendChild(pillBar);
+            subCardEls.forEach((el) => bodyDiv.appendChild(el));
+          } else {
+            subCards.forEach((sub, subIdx) => {
+              const subId = `sub-${cardIdx}-${subIdx}`;
+              sub.heading.id = subId;
+              const subEl = document.createElement("div");
+              subEl.className = "sub-card";
+              subEl.appendChild(sub.heading);
+              sub.nodes.forEach((n) => subEl.appendChild(n));
+              bodyDiv.appendChild(subEl);
+            });
+          }
+        } else {
+          cardData.nodes.forEach((node) => bodyDiv.appendChild(node));
+        }
+
+        section.appendChild(bodyDiv);
+        contentArea.appendChild(section);
+      });
+
+      enhanceCodeBlocks(contentArea);
+      enhanceLinksAndImages(contentArea);
+      setupScrollSpy();
+    }
+
+    // Add icon-only copy button to code blocks (no text added)
+    function enhanceCodeBlocks(root) {
+      root.querySelectorAll("pre").forEach((pre) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "code-wrapper";
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        const copyBtn = document.createElement("button");
+        copyBtn.type = "button";
+        copyBtn.className = "copy-btn";
+        copyBtn.setAttribute("aria-label", "Copy");
+        copyBtn.innerHTML = `
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        `;
+
+        copyBtn.addEventListener("click", async () => {
+          const codeText = pre.innerText;
+          try {
+            await navigator.clipboard.writeText(codeText);
+            copyBtn.classList.add("copied");
+            copyBtn.innerHTML = `
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            `;
+            setTimeout(() => {
+              copyBtn.classList.remove("copied");
+              copyBtn.innerHTML = `
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              `;
+            }, 1500);
+          } catch (_) {}
+        });
+
+        wrapper.appendChild(copyBtn);
+      });
+    }
+
+    // Open external links in new tab + enable image lightbox zoom
+    function enhanceLinksAndImages(root) {
+      root.querySelectorAll("a[href]").forEach((a) => {
+        if (a.getAttribute("href").startsWith("http")) {
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+        }
+      });
+
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightboxImg");
+
+      root.querySelectorAll("img").forEach((img) => {
+        img.loading = "lazy";
+        img.addEventListener("click", () => {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add("open");
+        });
+      });
+
+      lightbox.addEventListener("click", () => {
+        lightbox.classList.remove("open");
+      });
+    }
+
+    // Highlight active section in sidebar
+    function setupScrollSpy() {
+      const navItems = Array.from(document.querySelectorAll(".sidebar-nav .nav-item"));
+      const targets = navItems
+        .map((item) => document.getElementById(item.dataset.target))
+        .filter(Boolean);
+
+      const updateActive = () => {
+        const scrollPos = window.scrollY + 120;
+        let activeId = targets[0]?.id || "";
+
+        for (const el of targets) {
+          if (el.offsetParent !== null && el.offsetTop <= scrollPos) {
+            activeId = el.id;
+          }
+        }
+
+        navItems.forEach((item) => {
+          item.classList.toggle("active", item.dataset.target === activeId);
+        });
+      };
+
+      window.addEventListener("scroll", updateActive, { passive: true });
+      updateActive();
+    }
+
+    // Theme toggle
+    function initTheme() {
+      const saved = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = saved ? saved === "dark" : prefersDark;
+      applyTheme(isDark ? "dark" : "light");
+
+      document.getElementById("themeToggle").addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        applyTheme(next);
+        localStorage.setItem("theme", next);
+      });
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      document.getElementById("themeIconSun").style.display = theme === "dark" ? "block" : "none";
+      document.getElementById("themeIconMoon").style.display = theme === "dark" ? "none" : "block";
+    }
+
+    // Mobile drawer & scroll utilities
+    function initUIControls() {
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("sidebarBackdrop");
+      const toggle = document.getElementById("menuToggle");
+
+      const closeMenu = () => {
+        sidebar.classList.remove("open");
+        backdrop.classList.remove("open");
+      };
+
+      toggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        backdrop.classList.toggle("open");
+      });
+
+      backdrop.addEventListener("click", closeMenu);
+      document.getElementById("sidebarNav").addEventListener("click", (e) => {
+        if (e.target.classList.contains("nav-item")) {
+          closeMenu();
+        }
+      });
+
+      const progressBar = document.getElementById("progressBar");
+      const backToTop = document.getElementById("backToTop");
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+          progressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+          backToTop.classList.toggle("visible", window.scrollY > 360);
+        },
+        { passive: true }
+      );
+
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    // Load markdown file via fetch, with local file picker fallback if blocked by file:// CORS
+    async function loadMarkdown() {
+      try {
+        const res = await fetch(MD_FILE_PATH);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        renderDocument(text);
+      } catch (err) {
+        const contentArea = document.getElementById("contentArea");
+        contentArea.innerHTML = `
+          <div class="fallback-box">
+            <p>無法直接透過瀏覽器 <code>file://</code> 讀取本地 Markdown 檔案（CORS 安全性限制）。</p>
+            <p>請使用本地伺服器（例如 <code>python -m http.server</code> 或 Live Server）開啟，或手動選取 <code>NSYSU-AP專案組討論區.md</code>：</p>
+            <label class="file-label">
+              選取 Markdown 檔案
+              <input type="file" id="mdFileInput" accept=".md,.markdown,text/markdown" />
+            </label>
+          </div>
+        `;
+        document.getElementById("mdFileInput").addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => renderDocument(ev.target.result);
+          reader.readAsText(file, "UTF-8");
+        });
+      }
+    }
+
+    function initCyberParticles() {
+      const canvas = document.getElementById("cyberParticles");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      let width = 0;
+      let height = 0;
+      let particles = [];
+      const mouse = { x: -9999, y: -9999 };
+      const palette = ["#00f5ff", "#38bdf8", "#a855f7", "#ff2a85", "#22d3ee"];
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const targetCount = Math.min(68, Math.max(28, Math.floor((width * height) / 26000)));
+        if (particles.length !== targetCount) {
+          particles = Array.from({ length: targetCount }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.45,
+            vy: (Math.random() - 0.5) * 0.45,
+            r: Math.random() * 2 + 1.2,
+            color: palette[Math.floor(Math.random() * palette.length)],
+            alpha: Math.random() * 0.45 + 0.35
+          }));
+        }
+      }
+
+      window.addEventListener("resize", resize);
+      window.addEventListener("mousemove", (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      }, { passive: true });
+      window.addEventListener("mouseleave", () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+
+      resize();
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        const baseOpacity = isDark ? 0.85 : 0.55;
+        const linkDist = 135;
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (!reduceMotion) {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < -10) p.x = width + 10;
+            if (p.x > width + 10) p.x = -10;
+            if (p.y < -10) p.y = height + 10;
+            if (p.y > height + 10) p.y = -10;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha * baseOpacity;
+          ctx.shadowBlur = isDark ? 10 : 4;
+          ctx.shadowColor = p.color;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j];
+            const dx = p.x - q.x;
+            const dy = p.y - q.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < linkDist) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = p.color;
+              ctx.globalAlpha = (1 - dist / linkDist) * 0.18 * baseOpacity;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+
+          const mdx = p.x - mouse.x;
+          const mdy = p.y - mouse.y;
+          const mdist = Math.hypot(mdx, mdy);
+          if (mdist < 170) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = "#00f5ff";
+            ctx.globalAlpha = (1 - mdist / 170) * 0.28 * baseOpacity;
+            ctx.lineWidth = 1.1;
+            ctx.stroke();
+          }
+        }
+        ctx.globalAlpha = 1;
+        if (!reduceMotion) {
+          requestAnimationFrame(draw);
+        }
+      }
+
+      draw();
+    }
+
+    initTheme();
+    initCyberParticles();
+    initUIControls();
+    loadMarkdown();
+  </script>
+</body>
+</html>
