@@ -1,9 +1,8 @@
----
-title: NSYSU-AP專案組討論區
-
----
-
 [TOC]
+
+## 前言
+- 本文檔由Rix所寫，內容不保證完全正確，僅提供校務通專案組組員使用、討論
+- 可前往美化後網頁版查看，模板由Gemini 4 Hydrogen生成 --> [專案組討論區網頁版](https://remixfan0912.github.io/NSYSU-AP-Discussion/)
 
 ## 第一次專案討論 : 安裝環境 (2026/10/1)
 #### Windows安裝步驟 : 
