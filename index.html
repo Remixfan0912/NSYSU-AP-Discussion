@@ -4,34 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NSYSU-AP專案組討論區</title>
+  <link rel="icon" type="image/webp" href="./NSYSU-AP.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
-      --bg-page: #f4f6fa;
+      --bg-page: #f8f9fa;
       --bg-surface: #ffffff;
-      --bg-subcard: #f8fafc;
-      --bg-code: #0f172a;
-      --bg-inline-code: #eef2f7;
-      --bg-hover: #eef4ff;
-      --bg-active: #e0edff;
-      --text-primary: #1e293b;
-      --text-secondary: #475569;
-      --text-muted: #64748b;
-      --text-code: #e2e8f0;
-      --text-inline-code: #0f4c81;
-      --accent: #0175c2;
-      --accent-dark: #02569b;
-      --accent-light: #13b9fd;
-      --border: #e2e8f0;
-      --border-strong: #cbd5e1;
-      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
-      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
-      --glass-surface: rgba(255, 255, 255, 0.86);
-      --cyber-grid-color: rgba(1, 117, 194, 0.06);
-      --orb-opacity: 0.28;
+      --bg-subcard: #f8f9fa;
+      --bg-code: #1e1f20;
+      --bg-inline-code: #f1f3f4;
+      --bg-hover: #f1f3f4;
+      --bg-active: #e8f0fe;
+      --text-primary: #202124;
+      --text-secondary: #3c4043;
+      --text-muted: #5f6368;
+      --text-code: #e8eaed;
+      --text-inline-code: #174ea6;
+      --accent: #1a73e8;
+      --accent-dark: #1557b0;
+      --accent-light: #4285f4;
+      --g-blue: #4285f4;
+      --g-red: #ea4335;
+      --g-yellow: #fbbc05;
+      --g-green: #34a853;
+      --border: #dadce0;
+      --border-strong: #bdc1c6;
+      --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.08), 0 1px 3px 1px rgba(60, 64, 67, 0.05);
+      --shadow-md: 0 4px 16px rgba(60, 64, 67, 0.08), 0 1px 4px rgba(60, 64, 67, 0.05);
+      --glass-surface: rgba(255, 255, 255, 0.9);
+      --cyber-grid-color: rgba(66, 133, 244, 0.055);
+      --orb-opacity: 0.2;
       --radius-lg: 16px;
       --radius-md: 12px;
       --radius-sm: 8px;
@@ -40,28 +45,32 @@
     }
 
     [data-theme="dark"] {
-      --bg-page: #0b1120;
-      --bg-surface: #111827;
-      --bg-subcard: #172033;
-      --bg-code: #060a14;
-      --bg-inline-code: #1e293b;
-      --bg-hover: #1e293b;
-      --bg-active: rgba(19, 185, 253, 0.14);
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --text-code: #e2e8f0;
-      --text-inline-code: #7dd3fc;
-      --accent: #38bdf8;
-      --accent-dark: #0284c7;
-      --accent-light: #7dd3fc;
-      --border: #1e293b;
-      --border-strong: #334155;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
-      --glass-surface: rgba(17, 24, 39, 0.82);
-      --cyber-grid-color: rgba(56, 189, 248, 0.08);
-      --orb-opacity: 0.36;
+      --bg-page: #131314;
+      --bg-surface: #1e1f20;
+      --bg-subcard: #242528;
+      --bg-code: #0e0e10;
+      --bg-inline-code: #282a2c;
+      --bg-hover: #282a2c;
+      --bg-active: rgba(138, 180, 248, 0.16);
+      --text-primary: #e3e3e3;
+      --text-secondary: #c4c7c5;
+      --text-muted: #9aa0a6;
+      --text-code: #e8eaed;
+      --text-inline-code: #8ab4f8;
+      --accent: #8ab4f8;
+      --accent-dark: #669df6;
+      --accent-light: #aecbfa;
+      --g-blue: #8ab4f8;
+      --g-red: #f28b82;
+      --g-yellow: #fdd663;
+      --g-green: #81c995;
+      --border: #333537;
+      --border-strong: #444746;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.32);
+      --shadow-md: 0 10px 26px -6px rgba(0, 0, 0, 0.45);
+      --glass-surface: rgba(30, 31, 32, 0.88);
+      --cyber-grid-color: rgba(138, 180, 248, 0.07);
+      --orb-opacity: 0.24;
     }
 
     * {
@@ -97,12 +106,88 @@
     .cyber-grid {
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(to right, var(--cyber-grid-color) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--cyber-grid-color) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 35%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 35%, transparent 100%);
+      background-image: radial-gradient(circle, var(--cyber-grid-color) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 35%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 35%, #000 40%, transparent 100%);
+    }
+
+    .cyber-orb-4 {
+      width: 420px;
+      height: 420px;
+      top: 48%;
+      left: -120px;
+      background: radial-gradient(circle, #fbbc05 0%, #34a853 55%, transparent 75%);
+      animation-delay: -15s;
+      animation-duration: 24s;
+    }
+
+    /* Google Material Floating Geometric Shapes */
+    .g-shape {
+      position: absolute;
+      opacity: 0.14;
+      will-change: transform;
+      animation: shapeDrift 24s ease-in-out infinite alternate;
+    }
+
+    [data-theme="dark"] .g-shape {
+      opacity: 0.12;
+    }
+
+    .g-shape-pill {
+      width: 180px;
+      height: 54px;
+      border-radius: 999px;
+      border: 3px solid var(--g-blue);
+      top: 14%;
+      right: 8%;
+      transform: rotate(-18deg);
+    }
+
+    .g-shape-ring {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 4px solid var(--g-red);
+      top: 62%;
+      right: 6%;
+      animation-delay: -7s;
+      animation-duration: 28s;
+    }
+
+    .g-shape-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--g-yellow);
+      top: 34%;
+      left: 4%;
+      animation-delay: -12s;
+      animation-duration: 20s;
+    }
+
+    .g-shape-square {
+      width: 84px;
+      height: 84px;
+      border-radius: 22px;
+      border: 3px solid var(--g-green);
+      bottom: 12%;
+      left: 16%;
+      transform: rotate(22deg);
+      animation-delay: -4s;
+      animation-duration: 26s;
+    }
+
+    @keyframes shapeDrift {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(18px, -22px, 0) rotate(8deg);
+      }
+      100% {
+        transform: translate3d(-14px, 16px, 0) rotate(-6deg);
+      }
     }
 
     .cyber-orb {
@@ -119,7 +204,7 @@
       height: 520px;
       top: -140px;
       left: -80px;
-      background: radial-gradient(circle, #00f5ff 0%, #3b82f6 55%, transparent 75%);
+      background: radial-gradient(circle, #4285f4 0%, #8ab4f8 55%, transparent 75%);
     }
 
     .cyber-orb-2 {
@@ -127,7 +212,7 @@
       height: 560px;
       top: 25%;
       right: -140px;
-      background: radial-gradient(circle, #ff2a85 0%, #a855f7 55%, transparent 75%);
+      background: radial-gradient(circle, #ea4335 0%, #fbbc05 55%, transparent 75%);
       animation-delay: -6s;
       animation-duration: 22s;
     }
@@ -137,7 +222,7 @@
       height: 480px;
       bottom: -140px;
       left: 32%;
-      background: radial-gradient(circle, #22d3ee 0%, #8b5cf6 55%, transparent 75%);
+      background: radial-gradient(circle, #34a853 0%, #4285f4 55%, transparent 75%);
       animation-delay: -11s;
       animation-duration: 25s;
     }
@@ -163,7 +248,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .cyber-orb {
+      .cyber-orb,
+      .g-shape {
         animation: none;
       }
     }
@@ -180,7 +266,7 @@
       left: 0;
       height: 3px;
       width: 0%;
-      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
+      background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc05, #34a853);
       z-index: 1000;
       transition: width 0.1s linear;
     }
@@ -191,7 +277,7 @@
       top: 0;
       z-index: 900;
       height: var(--header-height);
-      background: color-mix(in srgb, var(--bg-surface) 86%, transparent);
+      background: color-mix(in srgb, var(--bg-surface) 88%, transparent);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -201,6 +287,17 @@
       padding: 0 24px;
     }
 
+    .topbar::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: linear-gradient(90deg, #4285f4 0% 25%, #ea4335 25% 50%, #fbbc05 50% 75%, #34a853 75% 100%);
+      opacity: 0.72;
+    }
+
     .topbar-left {
       display: flex;
       align-items: center;
@@ -208,16 +305,13 @@
       min-width: 0;
     }
 
-    .brand-badge {
-      width: 34px;
-      height: 34px;
+    .brand-logo {
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent-light));
-      display: grid;
-      place-items: center;
-      color: #ffffff;
+      object-fit: cover;
       flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(1, 117, 194, 0.25);
+      box-shadow: var(--shadow-sm);
     }
 
     .site-title {
@@ -292,7 +386,9 @@
     }
 
     .nav-item {
-      display: block;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
       text-decoration: none;
       color: var(--text-secondary);
       font-size: 0.9rem;
@@ -303,6 +399,19 @@
       transition: all 0.18s ease;
       line-height: 1.45;
     }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+      background: var(--g-blue);
+    }
+
+    .nav-dot.dot-1 { background: var(--g-green); }
+    .nav-dot.dot-2 { background: var(--g-yellow); }
+    .nav-dot.dot-3 { background: var(--g-red); }
 
     .nav-item:hover {
       background: var(--bg-hover);
@@ -342,32 +451,50 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border);
+      border-top: 4px solid var(--g-blue);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-md);
       overflow: hidden;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+    }
+
+    .discussion-card:nth-child(4n+2) {
+      border-top-color: var(--g-green);
+    }
+
+    .discussion-card:nth-child(4n+3) {
+      border-top-color: var(--g-yellow);
+    }
+
+    .discussion-card:nth-child(4n+4) {
+      border-top-color: var(--g-red);
     }
 
     .discussion-card:hover {
-      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-      box-shadow: var(--shadow-md), 0 0 24px -8px color-mix(in srgb, var(--accent) 30%, transparent);
+      box-shadow: var(--shadow-md), 0 8px 28px -8px color-mix(in srgb, var(--accent) 22%, transparent);
     }
 
     .card-header {
-      padding: 24px 34px;
-      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--bg-surface)), var(--bg-surface));
+      padding: 22px 34px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--g-blue) 7%, var(--bg-surface)), var(--bg-surface));
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 14px;
+      cursor: pointer;
+      user-select: none;
     }
 
-    .card-header-accent {
-      width: 5px;
-      height: 28px;
-      border-radius: 99px;
-      background: linear-gradient(180deg, var(--accent-dark), var(--accent-light));
-      flex-shrink: 0;
+    .discussion-card:nth-child(4n+2) .card-header {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--g-green) 7%, var(--bg-surface)), var(--bg-surface));
+    }
+
+    .discussion-card:nth-child(4n+3) .card-header {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--g-yellow) 9%, var(--bg-surface)), var(--bg-surface));
+    }
+
+    .discussion-card:nth-child(4n+4) .card-header {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--g-red) 7%, var(--bg-surface)), var(--bg-surface));
     }
 
     .card-header h2 {
@@ -376,6 +503,70 @@
       font-weight: 700;
       color: var(--text-primary);
       line-height: 1.4;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-timestamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 4px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-label-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .nav-timestamp {
+      font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
+    .card-collapse-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.22s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .card-collapse-btn:hover {
+      background: var(--bg-hover);
+      color: var(--accent);
+    }
+
+    .discussion-card.is-collapsed .card-collapse-btn {
+      transform: rotate(-90deg);
+    }
+
+    .discussion-card.is-collapsed .card-header {
+      border-bottom-color: transparent;
+    }
+
+    .discussion-card.is-collapsed .card-body {
+      display: none;
     }
 
     .card-body {
@@ -427,6 +618,44 @@
       border-radius: var(--radius-md);
       padding: 22px 26px;
       margin-bottom: 20px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sub-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Material step badges for ordered lists */
+    .card-body ol {
+      counter-reset: g-step;
+      list-style: none;
+      padding-left: 0;
+      margin: 12px 0 18px;
+    }
+
+    .card-body ol > li {
+      counter-increment: g-step;
+      position: relative;
+      padding-left: 36px;
+      margin: 14px 0;
+    }
+
+    .card-body ol > li::before {
+      content: counter(g-step);
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-active);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     }
 
     .sub-card:last-child {
@@ -729,6 +958,11 @@
     <div class="cyber-orb cyber-orb-1"></div>
     <div class="cyber-orb cyber-orb-2"></div>
     <div class="cyber-orb cyber-orb-3"></div>
+    <div class="cyber-orb cyber-orb-4"></div>
+    <div class="g-shape g-shape-pill"></div>
+    <div class="g-shape g-shape-ring"></div>
+    <div class="g-shape g-shape-circle"></div>
+    <div class="g-shape g-shape-square"></div>
     <canvas id="cyberParticles"></canvas>
   </div>
 
@@ -743,16 +977,17 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
-      <div class="brand-badge" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-        </svg>
-      </div>
+      <img class="brand-logo" src="./NSYSU-AP.webp" alt="NSYSU-AP" />
       <h1 class="site-title" id="siteTitle">NSYSU-AP專案組討論區</h1>
     </div>
 
     <div class="topbar-actions">
+      <button class="icon-btn" id="toggleAllCards" aria-label="Expand or collapse all">
+        <svg id="toggleAllIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="7 15 12 20 17 15"></polyline>
+          <polyline points="7 9 12 4 17 9"></polyline>
+        </svg>
+      </button>
       <button class="icon-btn" id="themeToggle" aria-label="Theme">
         <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
           <circle cx="12" cy="12" r="5"></circle>
@@ -873,19 +1108,69 @@
           const headerDiv = document.createElement("div");
           headerDiv.className = "card-header";
 
-          const accentBar = document.createElement("span");
-          accentBar.className = "card-header-accent";
+          // Extract trailing date/time e.g. (2026/10/1) into a right-aligned timestamp badge
+          const rawTitle = cardData.heading.textContent.trim();
+          const timeMatch = rawTitle.match(/^(.*?)\s*[\(（](\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}(?:\s+\d{1,2}:\d{2})?)[\)）]\s*$/);
+          const cleanTitle = timeMatch ? timeMatch[1].trim() : rawTitle;
+          const timeText = timeMatch ? timeMatch[2].trim() : "";
+          cardData.heading.textContent = cleanTitle;
 
-          headerDiv.appendChild(accentBar);
+          const collapseBtn = document.createElement("button");
+          collapseBtn.type = "button";
+          collapseBtn.className = "card-collapse-btn";
+          collapseBtn.setAttribute("aria-label", "Toggle section");
+          collapseBtn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          `;
+
           headerDiv.appendChild(cardData.heading);
+          if (timeText) {
+            const timeBadge = document.createElement("span");
+            timeBadge.className = "card-timestamp";
+            timeBadge.innerHTML = `
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            `;
+            const timeSpan = document.createElement("span");
+            timeSpan.textContent = timeText;
+            timeBadge.appendChild(timeSpan);
+            headerDiv.appendChild(timeBadge);
+          }
+          headerDiv.appendChild(collapseBtn);
+          headerDiv.addEventListener("click", () => {
+            section.classList.toggle("is-collapsed");
+          });
           section.appendChild(headerDiv);
 
-          // Add H2 to sidebar nav
+          // Add H2 to sidebar nav with Google color dot
           const navLink = document.createElement("a");
           navLink.href = `#${h2Id}`;
           navLink.className = "nav-item";
-          navLink.textContent = cardData.heading.textContent;
           navLink.dataset.target = h2Id;
+          const dot = document.createElement("span");
+          dot.className = `nav-dot dot-${cardIdx % 4}`;
+          const labelWrap = document.createElement("span");
+          labelWrap.className = "nav-label-wrap";
+          const labelSpan = document.createElement("span");
+          labelSpan.textContent = cleanTitle;
+          labelWrap.appendChild(labelSpan);
+          if (timeText) {
+            const navTime = document.createElement("span");
+            navTime.className = "nav-timestamp";
+            navTime.textContent = timeText;
+            labelWrap.appendChild(navTime);
+          }
+          navLink.appendChild(dot);
+          navLink.appendChild(labelWrap);
+          navLink.addEventListener("click", () => {
+            section.classList.remove("is-collapsed");
+          });
           sidebarNav.appendChild(navLink);
         }
 
@@ -942,7 +1227,8 @@
               subNav.textContent = sub.heading.textContent;
               subNav.dataset.target = subId;
               subNav.addEventListener("click", () => {
-                // Ensure target sub-card is visible when clicked from sidebar
+                // Ensure parent card and target sub-card are visible when clicked from sidebar
+                section.classList.remove("is-collapsed");
                 allBtn.classList.add("active");
                 pillBar.querySelectorAll(".pill-btn").forEach((b) => {
                   if (b !== allBtn) b.classList.remove("active");
@@ -1156,6 +1442,15 @@
       backToTop.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
+
+      const toggleAllBtn = document.getElementById("toggleAllCards");
+      let allCollapsed = false;
+      toggleAllBtn.addEventListener("click", () => {
+        allCollapsed = !allCollapsed;
+        document.querySelectorAll(".discussion-card").forEach((card) => {
+          card.classList.toggle("is-collapsed", allCollapsed);
+        });
+      });
     }
 
     // Load markdown file via fetch, with local file picker fallback if blocked by file:// CORS
@@ -1202,7 +1497,7 @@
       let height = 0;
       let particles = [];
       const mouse = { x: -9999, y: -9999 };
-      const palette = ["#00f5ff", "#38bdf8", "#a855f7", "#ff2a85", "#22d3ee"];
+      const palette = ["#4285f4", "#ea4335", "#fbbc05", "#34a853"];
 
       function resize() {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1287,7 +1582,7 @@
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = "#00f5ff";
+            ctx.strokeStyle = "#4285f4";
             ctx.globalAlpha = (1 - mdist / 170) * 0.28 * baseOpacity;
             ctx.lineWidth = 1.1;
             ctx.stroke();
