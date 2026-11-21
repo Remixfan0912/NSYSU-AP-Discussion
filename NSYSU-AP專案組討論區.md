@@ -125,3 +125,7 @@ title: NSYSU-AP專案組討論區
     - **搭配ElevatedButton** : onPressed觸發打API
 - 本次參考內容
     - [校務通PR - fix(bus): 遷移校車資料來源至 iBus+ API](https://github.com/nsysu-code-club/NSYSU-AP/pull/169)
+- 自行查閱重點 : 
+    - Generics - 泛型設計
+    - JSON取值/結構
+    - 非同步async執行方式
