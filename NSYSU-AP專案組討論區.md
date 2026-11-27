@@ -1,8 +1,3 @@
----
-title: NSYSU-AP專案組討論區
-
----
-
 [TOC]
 
 ## 前言
@@ -158,7 +153,7 @@ title: NSYSU-AP專案組討論區
     - model只是將json資料轉成dart格式，但沒有渲染效果
 - 如何設計一個StatelessWidget包裝一個站點的長相？
     - 是時候展現 ~~Build~~ With AI 的設計啦~
-    - 請打開你的 摳ㄉㄟˉ斯、克勞德、反重力、夸克 來實作看看吧
+    - 請打開你的 摳ㄉㄟˉ斯、克勞德、反重力、格勞克 來實作看看吧
 
 #### 如何把StatelessWidget放到頁面上？
 - 想想為何我不把model直接渲染到頁面，而是先獨立一個StatelessWidget呢？
